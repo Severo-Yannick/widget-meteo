@@ -13,7 +13,7 @@ const App = ({ city }) => {
         q: city,
       }
     }).then((result) => {
-      if (result?.data?.main?.temp){
+      if (result?.data?.main?.temp || result?.data?.main?.temp === 0){
         setTemp(result.data.main.temp)
       }
       if (result?.data?.weather?.[0]?.icon){
