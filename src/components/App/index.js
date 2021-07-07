@@ -5,6 +5,7 @@ import './styles.scss';
 const App = () => {
   const [city, setCity] = useState('Marseille');
   const [temp, setTemp] = useState(null);
+  const [weatherCode, setWeatherCode] = useState(null);
 
   useEffect(() => {
     api.get('/weather', {
@@ -14,6 +15,9 @@ const App = () => {
     }).then((result) => {
       if (result?.data?.main?.temp){
         setTemp(result.data.main.temp)
+      }
+      if (result?.data?.weather?.[0]?.icon){
+        setWeatherCode(result.data.weather[0].icon)
       }
     }).catch((error) => {
       if (error?.response?.data?.message){
@@ -36,9 +40,11 @@ const App = () => {
           {temp !== null ? `${temp.toFixed(1)}°C` : 'N/A'}
         </div>
         </div>
-       <div className="widget__img">
-         <img src="https://image.flaticon.com/icons/png/512/146/146199.png" alt="weather-logo" />
-       </div>
+        <div className="widget__img">
+          {weatherCode && (
+            <img src={`http://openweathermap.org/img/wn/${weatherCode}@2x.png`} alt="weather-logo" />
+          )}
+        </div>
      </div>
     </div>
   );
