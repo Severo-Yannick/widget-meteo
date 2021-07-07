@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import api from '../../api';
 import './styles.scss';
 
-const App = () => {
-  const [city, setCity] = useState('Marseille');
+const App = ({ city }) => {
   const [temp, setTemp] = useState(null);
   const [weatherCode, setWeatherCode] = useState(null);
 
@@ -49,5 +49,13 @@ const App = () => {
     </div>
   );
 }
+
+App.propTypes = {
+  city: PropTypes.string,
+};
+
+App.defaultProps = {
+  city: 'Paris',
+};
 
 export default App;
