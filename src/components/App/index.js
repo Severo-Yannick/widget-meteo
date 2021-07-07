@@ -3,8 +3,8 @@ import api from '../../api';
 import './styles.scss';
 
 const App = () => {
-  const [city, setCity] = useState('Paris');
-  const [temp, setTemp] = useState(12);
+  const [city, setCity] = useState('Marseille');
+  const [temp, setTemp] = useState(null);
 
   useEffect(() => {
     api.get('/weather', {
@@ -14,6 +14,13 @@ const App = () => {
     }).then((result) => {
       if (result?.data?.main?.temp){
         setTemp(result.data.main.temp)
+      }
+    }).catch((error) => {
+      if (error?.response?.data?.message){
+        alert(error.response.data.message);
+      }
+      else {
+        alert(error.message);
       }
     })
   }, [city]);
